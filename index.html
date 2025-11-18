@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es-ES" itemscope itemtype="https://schema.org/WebPage">
 <head>
@@ -75,6 +76,7 @@
             --facebook-gray: #f0f2f5;
             --facebook-text: #1c1e21;
             --facebook-time: #65676b;
+            --dark: #1a1a1a;
         }
         
         * {
@@ -96,9 +98,9 @@
             background-color: var(--primary);
             color: white;
             text-align: center;
-            padding: 12px;
+            padding: 12px 15px;
             font-weight: bold;
-            font-size: 18px;
+            font-size: clamp(14px, 4vw, 18px);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -107,14 +109,14 @@
         
         .hero {
             text-align: center;
-            padding: 40px 20px;
+            padding: 30px 20px;
             background: linear-gradient(135deg, #1a2a3a 0%, #2c3e50 100%);
             color: white;
         }
         
         .hero h1 {
-            font-size: clamp(2rem, 5vw, 2.8rem);
-            margin-bottom: 20px;
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            margin-bottom: 15px;
             line-height: 1.2;
         }
         
@@ -124,17 +126,19 @@
         }
         
         .video-container {
-            max-width: 800px;
+            max-width: 100%;
             margin: 0 auto;
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 15px 35px rgba(0,0,0,0.4);
         }
         
+        /* VIDEO CONTAINER RESPONSIVE */
         .video-wrapper {
             position: relative;
             width: 100%;
-            padding-bottom: 56.25%;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            background: #000;
         }
         
         .video-frame {
@@ -144,21 +148,49 @@
             width: 100%;
             height: 100%;
             border: none;
+            background: #000;
+        }
+
+        /* Mobile First Video Styles */
+        @media (max-width: 768px) {
+            .video-container {
+                margin: 0 10px;
+                border-radius: 8px;
+            }
+            
+            .video-wrapper {
+                padding-bottom: 65%; /* Slightly taller on mobile */
+            }
+        }
+
+        /* Desktop Video Styles */
+        @media (min-width: 1024px) {
+            .video-container {
+                max-width: 900px;
+            }
         }
 
         /* ESTILOS FACEBOOK PARA COMENTÁRIOS */
         .facebook-comments-section {
-            padding: 40px 20px;
+            padding: 30px 15px;
             background: white;
-            max-width: 800px;
-            margin: 40px auto;
+            max-width: 100%;
+            margin: 30px auto;
             border-radius: 8px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
 
+        @media (min-width: 768px) {
+            .facebook-comments-section {
+                max-width: 800px;
+                padding: 40px 20px;
+                margin: 40px auto;
+            }
+        }
+
         .facebook-comments-section h2 {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             font-size: 1.5rem;
             color: var(--facebook-text);
             font-weight: 600;
@@ -292,10 +324,17 @@
 
         /* Estilo para comentários com respostas */
         .facebook-comment-replies {
-            margin-left: 52px;
+            margin-left: 40px;
             margin-top: 8px;
             border-left: 2px solid #e4e6ea;
             padding-left: 12px;
+        }
+
+        @media (max-width: 480px) {
+            .facebook-comment-replies {
+                margin-left: 30px;
+                padding-left: 8px;
+            }
         }
 
         .facebook-comment-reply {
@@ -354,15 +393,40 @@
             text-decoration: underline;
         }
 
+        .disclaimer {
+            background-color: #000000;
+            color: #ffffff;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            line-height: 1.4;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .disclaimer {
+                margin: 15px 10px;
+                padding: 15px;
+                font-size: 0.75rem;
+            }
+        }
+
         /* Loading State */
         .video-loading {
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 450px;
+            min-height: 300px;
             background: #1a1a1a;
             color: white;
             border-radius: 12px;
+        }
+        
+        @media (min-width: 768px) {
+            .video-loading {
+                min-height: 450px;
+            }
         }
         
         .spinner {
@@ -386,15 +450,21 @@
         }
 
         .hero-subtitle {
-            font-size: clamp(1.1rem, 3vw, 1.4rem);
+            font-size: clamp(1rem, 3vw, 1.4rem);
             max-width: 800px;
-            margin: 0 auto 30px;
+            margin: 0 auto 25px;
             font-weight: 300;
         }
 
         .video-section {
-            padding: 40px 20px;
+            padding: 30px 15px;
             background: white;
+        }
+
+        @media (min-width: 768px) {
+            .video-section {
+                padding: 40px 20px;
+            }
         }
 
         .video-instructions {
@@ -402,20 +472,31 @@
             margin-top: 20px;
             font-size: 1.1rem;
             color: #666;
+            padding: 0 10px;
         }
 
-        @media (max-width: 768px) {
-            .facebook-comments-section {
-                margin: 20px auto;
-                padding: 20px 15px;
+        @media (max-width: 480px) {
+            .video-instructions {
+                font-size: 1rem;
+                padding: 0 5px;
             }
-
-            .facebook-comment-replies {
-                margin-left: 40px;
+            
+            .facebook-comment {
+                padding: 10px 0;
             }
-
-            .facebook-comment-image {
-                max-width: 150px;
+            
+            .facebook-avatar {
+                width: 36px;
+                height: 36px;
+                margin-right: 10px;
+            }
+            
+            .facebook-comment-content {
+                padding: 6px 10px;
+            }
+            
+            .facebook-comment-actions {
+                gap: 12px;
             }
         }
 
@@ -427,6 +508,20 @@
 
         .fade-in {
             animation: fadeIn 1s ease forwards;
+        }
+
+        /* Touch Improvements for Mobile */
+        @media (max-width: 768px) {
+            .facebook-like, .facebook-reply {
+                padding: 8px 0;
+                min-height: 44px; /* Minimum touch target size */
+            }
+            
+            .video-frame {
+                -webkit-touch-callout: none;
+                -webkit-user-select: none;
+                user-select: none;
+            }
         }
     </style>
 </head>
@@ -478,6 +573,14 @@
             </p>
         </div>
     </section>
+
+    <!-- Disclaimer Section -->
+    <div class="disclaimer">
+        <strong>AVISO LEGAL:</strong> Este sitio no está afiliado a Facebook ni a ninguna entidad de Facebook. 
+        Una vez que usted abandona Facebook, no es su responsabilidad, sino la nuestra. 
+        Hacemos todo lo posible para indicar y mostrar claramente todas las pruebas y resultados reales. 
+        No vendemos su correo electrónico ni ninguna información a terceros. Nunca hacemos ningún tipo de spam.
+    </div>
 
     <!-- Seção de Comentários Estilo Facebook -->
     <section class="facebook-comments-section fade-in" itemprop="review" itemscope itemtype="https://schema.org/ItemList">
@@ -622,10 +725,6 @@
                 <a href="/privacidad" itemprop="url">Política de Privacidad</a> | 
                 <a href="/contacto" itemprop="url">Contacto</a>
             </div>
-            <p style="margin-top: 15px; font-size: 0.8rem; opacity: 0.7;">
-                Este sitio no está afiliado a Facebook ni a ninguna entidad de Facebook. 
-                Hacemos todo lo posible para indicar y mostrar claramente todas las pruebas y resultados reales.
-            </p>
         </div>
     </footer>
 
