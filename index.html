@@ -43,7 +43,7 @@
             "price": "37",
             "priceCurrency": "USD",
             "availability": "https://schema.org/InStock",
-            "priceValidUntil": "2024-12-31"
+            "priceValidUntil": "2025-12-31"
         },
         "aggregateRating": {
             "@type": "AggregateRating",
@@ -64,7 +64,6 @@
         !function(i,n){i._plt=i._plt||(n&&n.timeOrigin?n.timeOrigin+n.now():Date.now())}(window,performance);
     </script>
     
-    <!-- Critical CSS Inline -->
     <style>
         /* CRITICAL CSS - Above the Fold */
         :root {
@@ -72,6 +71,10 @@
             --secondary: #2c3e50;
             --accent: #3498db;
             --success: #27ae60;
+            --facebook-blue: #1877f2;
+            --facebook-gray: #f0f2f5;
+            --facebook-text: #1c1e21;
+            --facebook-time: #65676b;
         }
         
         * {
@@ -142,7 +145,215 @@
             height: 100%;
             border: none;
         }
+
+        /* ESTILOS FACEBOOK PARA COMENTÁRIOS */
+        .facebook-comments-section {
+            padding: 40px 20px;
+            background: white;
+            max-width: 800px;
+            margin: 40px auto;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .facebook-comments-section h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.5rem;
+            color: var(--facebook-text);
+            font-weight: 600;
+        }
+
+        .facebook-comment {
+            display: flex;
+            padding: 12px 0;
+            border-bottom: 1px solid #e4e6ea;
+            margin-bottom: 0;
+        }
+
+        .facebook-comment:last-child {
+            border-bottom: none;
+        }
+
+        .facebook-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 12px;
+            flex-shrink: 0;
+            object-fit: cover;
+            border: 2px solid #e4e6ea;
+        }
+
+        .facebook-comment-content {
+            flex: 1;
+            background: var(--facebook-gray);
+            border-radius: 18px;
+            padding: 8px 12px;
+            position: relative;
+        }
+
+        .facebook-comment-content::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 12px;
+            width: 0;
+            height: 0;
+            border-top: 6px solid transparent;
+            border-bottom: 6px solid transparent;
+            border-right: 8px solid var(--facebook-gray);
+        }
+
+        .facebook-comment-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        .facebook-comment-name {
+            font-weight: 600;
+            font-size: 0.9375rem;
+            color: var(--facebook-text);
+            margin-right: 6px;
+        }
+
+        .facebook-comment-time {
+            font-size: 0.8125rem;
+            color: var(--facebook-time);
+        }
+
+        .facebook-comment-text {
+            font-size: 0.9375rem;
+            line-height: 1.3333;
+            color: var(--facebook-text);
+            margin-bottom: 6px;
+        }
+
+        .facebook-comment-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 0.8125rem;
+            color: var(--facebook-time);
+        }
+
+        .facebook-like, .facebook-reply {
+            cursor: pointer;
+            padding: 4px 0;
+            transition: color 0.2s;
+        }
+
+        .facebook-like:hover, .facebook-reply:hover {
+            color: var(--facebook-blue);
+        }
+
+        .facebook-reactions {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 4px;
+        }
+
+        .facebook-reaction {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--facebook-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        .facebook-likes-count {
+            font-size: 0.8125rem;
+            color: var(--facebook-time);
+            margin-left: 8px;
+        }
+
+        .facebook-comment-with-image {
+            margin-top: 8px;
+        }
+
+        .facebook-comment-image {
+            max-width: 200px;
+            border-radius: 8px;
+            margin-top: 8px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .facebook-comment-image:hover {
+            transform: scale(1.02);
+        }
+
+        /* Estilo para comentários com respostas */
+        .facebook-comment-replies {
+            margin-left: 52px;
+            margin-top: 8px;
+            border-left: 2px solid #e4e6ea;
+            padding-left: 12px;
+        }
+
+        .facebook-comment-reply {
+            display: flex;
+            padding: 8px 0;
+        }
+
+        .facebook-reply-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            margin-right: 8px;
+            flex-shrink: 0;
+            object-fit: cover;
+        }
+
+        .facebook-reply-content {
+            flex: 1;
+            background: var(--facebook-gray);
+            border-radius: 18px;
+            padding: 6px 12px;
+            position: relative;
+        }
+
+        .facebook-reply-content::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 8px;
+            width: 0;
+            height: 0;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            border-right: 8px solid var(--facebook-gray);
+        }
+
+        .footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.9rem;
+        }
         
+        .footer-links {
+            margin-top: 15px;
+        }
+        
+        .footer-links a {
+            color: #ecf0f1;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
         /* Loading State */
         .video-loading {
             display: flex;
@@ -167,11 +378,57 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 3vw, 1.4rem);
+            max-width: 800px;
+            margin: 0 auto 30px;
+            font-weight: 300;
+        }
+
+        .video-section {
+            padding: 40px 20px;
+            background: white;
+        }
+
+        .video-instructions {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .facebook-comments-section {
+                margin: 20px auto;
+                padding: 20px 15px;
+            }
+
+            .facebook-comment-replies {
+                margin-left: 40px;
+            }
+
+            .facebook-comment-image {
+                max-width: 150px;
+            }
+        }
+
+        /* Animações */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease forwards;
+        }
     </style>
-    
-    <!-- Deferred CSS -->
-    <link rel="preload" href="style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="style.css"></noscript>
 </head>
 
 <body itemscope itemtype="https://schema.org/WebPage">
@@ -222,94 +479,135 @@
         </div>
     </section>
 
-    <!-- Testimonials com Schema.org -->
-    <section class="testimonials" itemprop="review" itemscope itemtype="https://schema.org/ItemList">
-        <div class="container">
-            <h2 itemprop="name">Lo Que Dicen Nuestros Clientes Satisfechos</h2>
-            
-            <div class="testimonial-grid">
-                <!-- Testimonial 1 -->
-                <div class="testimonial" itemprop="itemListElement" itemscope itemtype="https://schema.org/Review">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">CR</div>
-                        <div>
-                            <div class="testimonial-name" itemprop="author">Carlos Rodríguez</div>
-                            <div class="testimonial-location">Bogotá, Colombia • 64 años</div>
-                        </div>
-                    </div>
-                    <p class="testimonial-text" itemprop="reviewBody">
-                        "Después de 12 años con artritis, había perdido la esperanza. En solo 3 semanas con el protocolo, pude volver a jugar con mis nietos. ¡Increíble!"
-                    </p>
-                    <div class="testimonial-rating" itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating">
-                        <meta itemprop="ratingValue" content="5">
-                        ★★★★★
-                    </div>
+    <!-- Seção de Comentários Estilo Facebook -->
+    <section class="facebook-comments-section fade-in" itemprop="review" itemscope itemtype="https://schema.org/ItemList">
+        <h2>Comentarios Recientes</h2>
+        
+        <div class="facebook-comment" itemprop="itemListElement" itemscope itemtype="https://schema.org/Review">
+            <img src="https://i.ibb.co/F4Px8TSQ/carlos-rodriguez.jpg" alt="Carlos Rodríguez" class="facebook-avatar" loading="lazy" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2240%22 height=%2240%22 viewBox=%220 0 40 40%22><rect width=%2240%22 height=%2240%22 fill=%22%233498db%22/><text x=%2220%22 y=%2224%22 font-family=%22Arial%22 font-size=%2214%22 text-anchor=%22middle%22 fill=%22white%22>CR</text></svg>'">
+            <div class="facebook-comment-content">
+                <div class="facebook-comment-header">
+                    <span class="facebook-comment-name" itemprop="author">Carlos Rodríguez</span>
+                    <span class="facebook-comment-time">· 2 h</span>
+                </div>
+                <div class="facebook-comment-text" itemprop="reviewBody">
+                    Mi dolor de rodillas era tan fuerte que no podía subir escaleras. Gasté fortunas en tratamientos. Este protocolo natural fue la única cosa que funcionó de verdad. ¡Increíble!
+                </div>
+                <div class="facebook-comment-actions">
+                    <span class="facebook-like">Me gusta</span>
+                    <span class="facebook-reply">Responder</span>
+                    <span class="facebook-comment-time">15</span>
+                </div>
+                <div class="facebook-reactions">
+                    <div class="facebook-reaction">👍</div>
+                    <div class="facebook-reaction">❤️</div>
+                    <div class="facebook-likes-count">Carlos y 14 personas más</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="facebook-comment" itemprop="itemListElement" itemscope itemtype="https://schema.org/Review">
+            <img src="https://i.ibb.co/SgSrhfj/ana-martinez.jpg" alt="Ana Martínez" class="facebook-avatar" loading="lazy" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2240%22 height=%2240%22 viewBox=%220 0 40 40%22><rect width=%2240%22 height=%2240%22 fill=%22%23e74c3c%22/><text x=%2220%22 y=%2224%22 font-family=%22Arial%22 font-size=%2214%22 text-anchor=%22middle%22 fill=%22white%22>AM</text></svg>'">
+            <div class="facebook-comment-content">
+                <div class="facebook-comment-header">
+                    <span class="facebook-comment-name" itemprop="author">Ana Martínez</span>
+                    <span class="facebook-comment-time">· 3 h</span>
+                </div>
+                <div class="facebook-comment-text" itemprop="reviewBody">
+                    Lo mejor es que es 100% natural. Mi médico no podía creer la mejoría en mis análisis. Ya no tomo pastillas para el dolor. ¡Recomiendo este método a todos!
+                </div>
+                <div class="facebook-comment-actions">
+                    <span class="facebook-like">Me gusta</span>
+                    <span class="facebook-reply">Responder</span>
+                    <span class="facebook-comment-time">22</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="facebook-comment" itemprop="itemListElement" itemscope itemtype="https://schema.org/Review">
+            <img src="https://i.ibb.co/JFs143kB/jose-lopez.jpg" alt="José López" class="facebook-avatar" loading="lazy" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2240%22 height=%2240%22 viewBox=%220 0 40 40%22><rect width=%2240%22 height=%2240%22 fill=%22%2327ae60%22/><text x=%2220%22 y=%2224%22 font-family=%22Arial%22 font-size=%2214%22 text-anchor=%22middle%22 fill=%22white%22>JL</text></svg>'">
+            <div class="facebook-comment-content">
+                <div class="facebook-comment-header">
+                    <span class="facebook-comment-name" itemprop="author">José López</span>
+                    <span class="facebook-comment-time">· 5 h</span>
+                </div>
+                <div class="facebook-comment-text" itemprop="reviewBody">
+                    Tenía artrosis en ambas caderas. Los médicos me decían que necesitaba cirugía. Con este protocolo, en un mes el dolor desapareció completamente. ¡Milagroso!
+                </div>
+                <div class="facebook-comment-actions">
+                    <span class="facebook-like">Me gusta</span>
+                    <span class="facebook-reply">Responder</span>
+                    <span class="facebook-comment-time">18</span>
                 </div>
                 
-                <!-- Testimonial 2 -->
-                <div class="testimonial" itemprop="itemListElement" itemscope itemtype="https://schema.org/Review">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">AM</div>
-                        <div>
-                            <div class="testimonial-name" itemprop="author">Ana Martínez</div>
-                            <div class="testimonial-location">Ciudad de México • 61 años</div>
+                <!-- Respostas ao comentário -->
+                <div class="facebook-comment-replies">
+                    <div class="facebook-comment-reply">
+                        <img src="https://i.ibb.co/mCj7TkX3/miguel-torrez.jpg" alt="Miguel Torres" class="facebook-reply-avatar" loading="lazy" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2232%22 height=%2232%22 viewBox=%220 0 32 32%22><rect width=%2232%22 height=%2232%22 fill=%22%233498db%22/><text x=%2216%22 y=%2220%22 font-family=%22Arial%22 font-size=%2212%22 text-anchor=%22middle%22 fill=%22white%22>MT</text></svg>'">
+                        <div class="facebook-reply-content">
+                            <div class="facebook-comment-header">
+                                <span class="facebook-comment-name">Miguel Torres</span>
+                                <span class="facebook-comment-time">· 4 h</span>
+                            </div>
+                            <div class="facebook-comment-text">
+                                ¡Totalmente de acuerdo José! Yo también sufrí por años hasta encontrar este método.
+                            </div>
                         </div>
-                    </div>
-                    <p class="testimonial-text" itemprop="reviewBody">
-                        "Lo mejor es que es 100% natural. Mi médico no podía creer la mejoría en mis análisis. Ya no tomo pastillas para el dolor."
-                    </p>
-                    <div class="testimonial-rating" itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating">
-                        <meta itemprop="ratingValue" content="5">
-                        ★★★★★
-                    </div>
-                </div>
-
-                <!-- Testimonial 3 -->
-                <div class="testimonial" itemprop="itemListElement" itemscope itemtype="https://schema.org/Review">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">RG</div>
-                        <div>
-                            <div class="testimonial-name" itemprop="author">Rosa García</div>
-                            <div class="testimonial-location">Santiago, Chile • 59 años</div>
-                        </div>
-                    </div>
-                    <p class="testimonial-text" itemprop="reviewBody">
-                        "Mi fibromialgia me tenía postrada en cama. Ahora puedo hacer las tareas de la casa y salir a caminar. ¡Gracias!"
-                    </p>
-                    <div class="testimonial-rating" itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating">
-                        <meta itemprop="ratingValue" content="5">
-                        ★★★★★
                     </div>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- FAQ Section para SEO -->
-    <section class="faq-section" itemscope itemtype="https://schema.org/FAQPage">
-        <div class="container">
-            <h2>Preguntas Frecuentes sobre el Protocolo Articulaciones Fuertes</h2>
-            
-            <div class="faq-grid">
-                <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-                    <h3 itemprop="name">¿Funciona para cualquier tipo de dolor articular?</h3>
-                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-                        <p itemprop="text">Sí, el protocolo está diseñado para abordar la raíz del problema, siendo efectivo para artritis, artrosis, dolor de rodillas, caderas, espalda y cualquier otra dolencia articular.</p>
-                    </div>
+        <div class="facebook-comment" itemprop="itemListElement" itemscope itemtype="https://schema.org/Review">
+            <img src="https://i.ibb.co/HLVNZ3cZ/rosa-garcia.jpg" alt="Rosa García" class="facebook-avatar" loading="lazy" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2240%22 height=%2240%22 viewBox=%220 0 40 40%22><rect width=%2240%22 height=%2240%22 fill=%22%23e74c3c%22/><text x=%2220%22 y=%2224%22 font-family=%22Arial%22 font-size=%2214%22 text-anchor=%22middle%22 fill=%22white%22>RG</text></svg>'">
+            <div class="facebook-comment-content">
+                <div class="facebook-comment-header">
+                    <span class="facebook-comment-name" itemprop="author">Rosa García</span>
+                    <span class="facebook-comment-time">· 6 h</span>
                 </div>
-                
-                <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-                    <h3 itemprop="name">¿Es seguro si tengo otras condiciones médicas?</h3>
-                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-                        <p itemprop="text">Absolutamente. El protocolo utiliza ingredientes 100% naturales y no interactúa con medicamentos. Es seguro para personas con diabetes, hipertensión y otras condiciones.</p>
-                    </div>
+                <div class="facebook-comment-text" itemprop="reviewBody">
+                    Mi fibromialgia me tenía postrada en cama. Ahora puedo hacer las tareas de la casa y salir a caminar. Mi familia no puede creer el cambio. ¡Gracias!
                 </div>
-                
-                <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-                    <h3 itemprop="name">¿Cuánto tiempo tardan los resultados?</h3>
-                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-                        <p itemprop="text">La mayoría de las personas experimentan alivio significativo en la primera semana. En casos más graves, puede tomar hasta 4 semanas para la remisión completa del dolor.</p>
-                    </div>
+                <div class="facebook-comment-actions">
+                    <span class="facebook-like">Me gusta</span>
+                    <span class="facebook-reply">Responder</span>
+                    <span class="facebook-comment-time">27</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="facebook-comment" itemprop="itemListElement" itemscope itemtype="https://schema.org/Review">
+            <img src="https://i.ibb.co/whLdgD8W/laura-silva.jpg" alt="Laura Silva" class="facebook-avatar" loading="lazy" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2240%22 height=%2240%22 viewBox=%220 0 40 40%22><rect width=%2240%22 height=%2240%22 fill=%22%2327ae60%22/><text x=%2220%22 y=%2224%22 font-family=%22Arial%22 font-size=%2214%22 text-anchor=%22middle%22 fill=%22white%22>LS</text></svg>'">
+            <div class="facebook-comment-content">
+                <div class="facebook-comment-header">
+                    <span class="facebook-comment-name" itemprop="author">Laura Silva</span>
+                    <span class="facebook-comment-time">· 7 h</span>
+                </div>
+                <div class="facebook-comment-text" itemprop="reviewBody">
+                    Después de años tomando antiinflamatorios que dañaron mi estómago, encontré esta solución natural. En 3 semanas pude dejar todos los medicamentos. ¡Por fin libre!
+                </div>
+                <div class="facebook-comment-actions">
+                    <span class="facebook-like">Me gusta</span>
+                    <span class="facebook-reply">Responder</span>
+                    <span class="facebook-comment-time">31</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="facebook-comment" itemprop="itemListElement" itemscope itemtype="https://schema.org/Review">
+            <img src="https://i.ibb.co/mCj7TkX3/miguel-torrez.jpg" alt="Miguel Torres" class="facebook-avatar" loading="lazy" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2240%22 height=%2240%22 viewBox=%220 0 40 40%22><rect width=%2240%22 height=%2240%22 fill=%22%233498db%22/><text x=%2220%22 y=%2224%22 font-family=%22Arial%22 font-size=%2214%22 text-anchor=%22middle%22 fill=%22white%22>MT</text></svg>'">
+            <div class="facebook-comment-content">
+                <div class="facebook-comment-header">
+                    <span class="facebook-comment-name" itemprop="author">Miguel Torres</span>
+                    <span class="facebook-comment-time">· 8 h</span>
+                </div>
+                <div class="facebook-comment-text" itemprop="reviewBody">
+                    Dolor de espalda por 15 años. Probé de todo: quiropráctica, acupuntura, masajes. Nada como este protocolo. En 2 semanas sentí la diferencia.
+                </div>
+                <div class="facebook-comment-actions">
+                    <span class="facebook-like">Me gusta</span>
+                    <span class="facebook-reply">Responder</span>
+                    <span class="facebook-comment-time">19</span>
                 </div>
             </div>
         </div>
@@ -318,12 +616,16 @@
     <!-- Footer -->
     <footer class="footer" itemprop="significantLink">
         <div class="container">
-            <p>© 2024 Protocolo Articulaciones Fuertes. Todos los derechos reservados.</p>
+            <p>© 2025 Protocolo Articulaciones Fuertes. Todos los derechos reservados.</p>
             <div class="footer-links">
                 <a href="/terminos" itemprop="url">Términos de Servicio</a> | 
                 <a href="/privacidad" itemprop="url">Política de Privacidad</a> | 
                 <a href="/contacto" itemprop="url">Contacto</a>
             </div>
+            <p style="margin-top: 15px; font-size: 0.8rem; opacity: 0.7;">
+                Este sitio no está afiliado a Facebook ni a ninguna entidad de Facebook. 
+                Hacemos todo lo posible para indicar y mostrar claramente todas las pruebas y resultados reales.
+            </p>
         </div>
     </footer>
 
@@ -372,6 +674,24 @@
             // Carregar vídeo
             loadVideo();
             
+            // Interações dos comentários do Facebook
+            const likeButtons = document.querySelectorAll('.facebook-like');
+            likeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const timeElement = this.nextElementSibling.nextElementSibling;
+                    let likes = parseInt(timeElement.textContent) || 0;
+                    timeElement.textContent = likes + 1;
+                    this.style.color = '#1877f2';
+                    this.style.fontWeight = '600';
+                    
+                    // Adicionar reação visual
+                    const reactions = this.closest('.facebook-comment-content').querySelector('.facebook-reactions');
+                    if (reactions) {
+                        reactions.style.display = 'flex';
+                    }
+                });
+            });
+            
             // Lazy Load de elementos não críticos
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -400,185 +720,3 @@
     </script>
 </body>
 </html>
-
-<style>
-/* DEFERRED CSS - Non Critical */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 15px;
-}
-
-.hero-subtitle {
-    font-size: clamp(1.1rem, 3vw, 1.4rem);
-    max-width: 800px;
-    margin: 0 auto 30px;
-    font-weight: 300;
-}
-
-.video-section {
-    padding: 40px 20px;
-    background: white;
-}
-
-.video-instructions {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 1.1rem;
-    color: #666;
-}
-
-.testimonials {
-    padding: 60px 20px;
-    background: #ecf0f1;
-}
-
-.testimonials h2 {
-    text-align: center;
-    margin-bottom: 40px;
-    font-size: 2.2rem;
-    color: #2c3e50;
-}
-
-.testimonial-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 25px;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.testimonial {
-    background: white;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-.testimonial-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.testimonial-avatar {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: #3498db;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: bold;
-    margin-right: 15px;
-}
-
-.testimonial-name {
-    font-weight: bold;
-    font-size: 1.1rem;
-}
-
-.testimonial-location {
-    color: #7f8c8d;
-    font-size: 0.9rem;
-}
-
-.testimonial-text {
-    font-style: italic;
-    line-height: 1.5;
-    color: #2c3e50;
-}
-
-.testimonial-rating {
-    color: #f1c40f;
-    font-size: 1.2rem;
-    margin-top: 10px;
-}
-
-.faq-section {
-    padding: 60px 20px;
-    background: white;
-}
-
-.faq-section h2 {
-    text-align: center;
-    margin-bottom: 40px;
-    font-size: 2.2rem;
-    color: #2c3e50;
-}
-
-.faq-grid {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.faq-item {
-    margin-bottom: 30px;
-    padding: 20px;
-    background: #f8f9fa;
-    border-radius: 8px;
-}
-
-.faq-item h3 {
-    color: #2c3e50;
-    margin-bottom: 10px;
-    font-size: 1.2rem;
-}
-
-.footer {
-    background-color: #2c3e50;
-    color: white;
-    text-align: center;
-    padding: 30px 20px;
-}
-
-.footer-links {
-    margin-top: 15px;
-}
-
-.footer-links a {
-    color: #ecf0f1;
-    margin: 0 10px;
-    text-decoration: none;
-}
-
-.footer-links a:hover {
-    text-decoration: underline;
-}
-
-/* Animações */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.fade-in {
-    animation: fadeIn 1s ease forwards;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .testimonial-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .video-container {
-        margin: 0 10px;
-    }
-    
-    .faq-item {
-        padding: 15px;
-    }
-}
-
-@media (max-width: 480px) {
-    .hero {
-        padding: 30px 15px;
-    }
-    
-    .video-section {
-        padding: 20px 10px;
-    }
-}
-</style>
