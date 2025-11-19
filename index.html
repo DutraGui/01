@@ -40,7 +40,7 @@
         },
         "offers": {
             "@type": "Offer",
-            "price": "37",
+            "price": "27",
             "priceCurrency": "USD",
             "availability": "https://schema.org/InStock",
             "priceValidUntil": "2025-12-31"
@@ -152,7 +152,7 @@
 
         /* BOTÃO DE COMPRA */
         .purchase-button-container {
-            display: block;
+            display: none;
             text-align: center;
             margin: 25px auto;
             max-width: 500px;
@@ -643,11 +643,11 @@
                 </div>
             </div>
 
-            <!-- Botão de Compra - AGORA VISÍVEL DESDE O INÍCIO -->
+            <!-- Botão de Compra -->
             <div class="purchase-button-container" id="purchase-button-container">
                 <button class="purchase-button pulsing" id="purchase-button">
                     <span class="button-text">¡QUIERO ELIMINAR MI DOLOR ARTICULAR!</span>
-                    <span class="button-subtext">Oferta Especial por Tiempo Limitado</span>
+                    <span class="button-subtext">Oferta Especial - $27 USD</span>
                 </button>
             </div>
             
@@ -814,11 +814,13 @@
     <!-- Scripts Otimizados -->
     <script>
         // Links de compra
-        const MAIN_PURCHASE_LINK = 'https://pay.kiwify.com/uJflP5X';
-        const EXIT_PURCHASE_LINK = 'https://pay.kiwify.com/yAMdzMA';
+        const MAIN_PURCHASE_LINK = 'https://pay.kiwify.com/uJflP5X'; // $27
+        const EXIT_PURCHASE_LINK = 'https://pay.kiwify.com/yAMdzMA'; // $6
 
         // Variáveis globais
         let redirectEnabled = true;
+        let buttonShown = false;
+        const BUTTON_DELAY = 5 * 60 * 1000; // 5 minutos em milissegundos
 
         // Video Loader Otimizado
         function loadVideo() {
@@ -838,6 +840,24 @@
             setTimeout(() => {
                 iframe.src = videoUrl;
             }, 100);
+        }
+
+        // Mostrar botão após 5 minutos
+        function showPurchaseButton() {
+            if (!buttonShown) {
+                const purchaseButton = document.getElementById('purchase-button-container');
+                purchaseButton.style.display = 'block';
+                purchaseButton.classList.add('fade-in');
+                buttonShown = true;
+                
+                // Rolar suavemente para o botão
+                setTimeout(() => {
+                    purchaseButton.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'center' 
+                    });
+                }, 500);
+            }
         }
 
         // Configurar redirecionamento de saída
@@ -891,6 +911,9 @@
                     this.style.transform = 'scale(1)';
                 }, 150);
             });
+            
+            // Mostrar botão após 5 minutos
+            setTimeout(showPurchaseButton, BUTTON_DELAY);
             
             // Configurar redirecionamento de saída
             setupExitRedirect();
