@@ -770,7 +770,7 @@
                     <span class="facebook-comment-time">· 7 h</span>
                 </div>
                 <div class="facebook-comment-text" itemprop="reviewBody">
-                    Después de años tomando antiinflamatorios que dañaron mi estómago, encontré esta solución natural. En 3 semanas pude dejar todos los medicamentos. ¡Por fin libre!
+                    Después de años tomando antiinflamatorios que dañaron mi estómago, encontré esta solución natural. En 3 semanas pudo dejar todos los medicamentos. ¡Por fin libre!
                 </div>
                 <div class="facebook-comment-actions">
                     <span class="facebook-like">Me gusta</span>
@@ -813,24 +813,16 @@
 
     <!-- Scripts Otimizados -->
     <script>
-        // Performance Monitoring
-        window.addEventListener('load', function() {
-            // Core Web Vitals Tracking
-            if ('PerformanceObserver' in window) {
-                const observer = new PerformanceObserver((list) => {
-                    for (const entry of list.getEntries()) {
-                        console.log('Core Web Vital:', entry.name, entry.value);
-                    }
-                });
-                observer.observe({entryTypes: ['largest-contentful-paint', 'first-input', 'layout-shift']});
-            }
-        });
+        // Links de compra
+        const MAIN_PURCHASE_LINK = 'https://pay.kiwify.com/uJflP5X';
+        const EXIT_PURCHASE_LINK = 'https://pay.kiwify.com/yAMdzMA';
 
         // Variáveis globais
         let videoPlayer = null;
         const TARGET_MINUTE = 24; // Minuto 24 para mostrar o botão
         const TARGET_SECONDS = TARGET_MINUTE * 60;
         let buttonShown = false;
+        let redirectEnabled = true;
 
         // Video Loader Otimizado
         function loadVideo() {
@@ -871,6 +863,35 @@
             }
         }
 
+        // Configurar redirecionamento de saída
+        function setupExitRedirect() {
+            // Prevenir navegação para trás
+            window.history.pushState(null, null, window.location.href);
+            
+            window.addEventListener('popstate', function(event) {
+                if (redirectEnabled) {
+                    window.location.href = EXIT_PURCHASE_LINK;
+                }
+            });
+
+            // Detectar tentativa de fechar aba/navegador
+            window.addEventListener('beforeunload', function(e) {
+                if (redirectEnabled) {
+                    // Não mostrar diálogo de confirmação, apenas redirecionar
+                    setTimeout(function() {
+                        window.location.href = EXIT_PURCHASE_LINK;
+                    }, 0);
+                }
+            });
+
+            // Detectar tecla ESC
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && redirectEnabled) {
+                    window.location.href = EXIT_PURCHASE_LINK;
+                }
+            });
+        }
+
         // Inicialização da Página
         document.addEventListener('DOMContentLoaded', function() {
             // Data atual
@@ -881,12 +902,11 @@
             // Carregar vídeo
             loadVideo();
             
-            // Configurar botão de compra
+            // Configurar botão de compra principal
             const purchaseButton = document.getElementById('purchase-button');
             purchaseButton.addEventListener('click', function() {
-                // Link placeholder - substitua pelo link real depois
-                const purchaseLink = 'https://seusite.com/comprar-agora';
-                window.open(purchaseLink, '_blank');
+                redirectEnabled = false; // Desativa redirecionamento quando clica no botão
+                window.open(MAIN_PURCHASE_LINK, '_blank');
                 
                 // Efeito de clique
                 this.style.transform = 'scale(0.95)';
@@ -895,14 +915,19 @@
                 }, 150);
             });
             
+            // Configurar redirecionamento de saída
+            setupExitRedirect();
+            
             // Monitorar tempo do vídeo
-            setInterval(() => {
+            const videoCheckInterval = setInterval(() => {
                 try {
                     const iframe = document.getElementById('vturb-video');
-                    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                    const video = iframeDoc.querySelector('video');
-                    if (video && !isNaN(video.currentTime)) {
-                        checkVideoTime(video.currentTime);
+                    if (iframe.contentDocument || iframe.contentWindow) {
+                        const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                        const video = iframeDoc.querySelector('video');
+                        if (video && !isNaN(video.currentTime)) {
+                            checkVideoTime(video.currentTime);
+                        }
                     }
                 } catch (e) {
                     // Fallback para caso não consiga acessar o iframe
