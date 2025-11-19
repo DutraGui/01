@@ -152,7 +152,7 @@
 
         /* BOTÃO DE COMPRA */
         .purchase-button-container {
-            display: none;
+            display: block;
             text-align: center;
             margin: 25px auto;
             max-width: 500px;
@@ -643,7 +643,7 @@
                 </div>
             </div>
 
-            <!-- Botão de Compra -->
+            <!-- Botão de Compra - AGORA VISÍVEL DESDE O INÍCIO -->
             <div class="purchase-button-container" id="purchase-button-container">
                 <button class="purchase-button pulsing" id="purchase-button">
                     <span class="button-text">¡QUIERO ELIMINAR MI DOLOR ARTICULAR!</span>
@@ -818,10 +818,6 @@
         const EXIT_PURCHASE_LINK = 'https://pay.kiwify.com/yAMdzMA';
 
         // Variáveis globais
-        let videoPlayer = null;
-        const TARGET_MINUTE = 24; // Minuto 24 para mostrar o botão
-        const TARGET_SECONDS = TARGET_MINUTE * 60;
-        let buttonShown = false;
         let redirectEnabled = true;
 
         // Video Loader Otimizado
@@ -842,25 +838,6 @@
             setTimeout(() => {
                 iframe.src = videoUrl;
             }, 100);
-        }
-
-        // Verificar tempo do vídeo e mostrar botão
-        function checkVideoTime(currentTime) {
-            const purchaseButton = document.getElementById('purchase-button-container');
-            
-            if (currentTime >= TARGET_SECONDS && !buttonShown) {
-                purchaseButton.style.display = 'block';
-                purchaseButton.classList.add('fade-in');
-                buttonShown = true;
-                
-                // Rolar suavemente para o botão
-                setTimeout(() => {
-                    purchaseButton.scrollIntoView({ 
-                        behavior: 'smooth', 
-                        block: 'center' 
-                    });
-                }, 500);
-            }
         }
 
         // Configurar redirecionamento de saída
@@ -917,23 +894,6 @@
             
             // Configurar redirecionamento de saída
             setupExitRedirect();
-            
-            // Monitorar tempo do vídeo
-            const videoCheckInterval = setInterval(() => {
-                try {
-                    const iframe = document.getElementById('vturb-video');
-                    if (iframe.contentDocument || iframe.contentWindow) {
-                        const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                        const video = iframeDoc.querySelector('video');
-                        if (video && !isNaN(video.currentTime)) {
-                            checkVideoTime(video.currentTime);
-                        }
-                    }
-                } catch (e) {
-                    // Fallback para caso não consiga acessar o iframe
-                    console.log('Aguardando vídeo carregar...');
-                }
-            }, 1000);
             
             // Interações dos comentários do Facebook
             const likeButtons = document.querySelectorAll('.facebook-like');
