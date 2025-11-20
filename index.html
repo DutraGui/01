@@ -646,8 +646,8 @@
             <!-- Botão de Compra -->
             <div class="purchase-button-container" id="purchase-button-container">
                 <button class="purchase-button pulsing" id="purchase-button">
-                    <span class="button-text">¡QUIERO ELIMINAR MI DOLOR ARTICULAR!</span>
-                    <span class="button-subtext">Oferta Especial - $27 USD</span>
+                    <span class="button-text">¡APROVECHA ESTA OFERTA AHORA!</span>
+                    <span class="button-subtext">Oferta Especial por Tiempo Limitado</span>
                 </button>
             </div>
             
@@ -820,7 +820,8 @@
         // Variáveis globais
         let redirectEnabled = true;
         let buttonShown = false;
-        const BUTTON_DELAY = 5 * 60 * 1000; // 5 minutos em milissegundos
+        const BUTTON_DELAY = 20 * 60 * 1000; // 20 minutos em milissegundos
+        let pageLoadTime = Date.now();
 
         // Video Loader Otimizado
         function loadVideo() {
@@ -842,7 +843,7 @@
             }, 100);
         }
 
-        // Mostrar botão após 5 minutos
+        // Mostrar botão após 20 minutos
         function showPurchaseButton() {
             if (!buttonShown) {
                 const purchaseButton = document.getElementById('purchase-button-container');
@@ -875,9 +876,9 @@
             window.addEventListener('beforeunload', function(e) {
                 if (redirectEnabled) {
                     // Não mostrar diálogo de confirmação, apenas redirecionar
-                    setTimeout(function() {
-                        window.location.href = EXIT_PURCHASE_LINK;
-                    }, 0);
+                    e.preventDefault();
+                    e.returnValue = '';
+                    window.location.href = EXIT_PURCHASE_LINK;
                 }
             });
 
@@ -887,6 +888,23 @@
                     window.location.href = EXIT_PURCHASE_LINK;
                 }
             });
+
+            // Detectar movimento do mouse para fora da página
+            document.addEventListener('mouseleave', function(e) {
+                if (e.clientY < 0 && redirectEnabled) {
+                    window.location.href = EXIT_PURCHASE_LINK;
+                }
+            });
+        }
+
+        // Verificar tempo na página e mostrar botão
+        function checkPageTime() {
+            const currentTime = Date.now();
+            const timeOnPage = currentTime - pageLoadTime;
+            
+            if (timeOnPage >= BUTTON_DELAY && !buttonShown) {
+                showPurchaseButton();
+            }
         }
 
         // Inicialização da Página
@@ -912,11 +930,11 @@
                 }, 150);
             });
             
-            // Mostrar botão após 5 minutos
-            setTimeout(showPurchaseButton, BUTTON_DELAY);
-            
             // Configurar redirecionamento de saída
             setupExitRedirect();
+            
+            // Verificar tempo na página a cada segundo
+            setInterval(checkPageTime, 1000);
             
             // Interações dos comentários do Facebook
             const likeButtons = document.querySelectorAll('.facebook-like');
