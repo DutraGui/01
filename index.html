@@ -53,24 +53,6 @@
     }
     </script>
     
-    <!-- Meta Pixel Code -->
-    <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '2193585124501727');
-    fbq('track', 'PageView');
-    </script>
-    <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=2193585124501727&ev=PageView&noscript=1"
-    /></noscript>
-    <!-- End Meta Pixel Code -->
-    
     <!-- Preload Critical Resources -->
     <link rel="preload" href="https://scripts.converteai.net/lib/js/smartplayer-wc/v4/sdk.js" as="script" crossorigin="anonymous">
     <link rel="preconnect" href="https://scripts.converteai.net">
@@ -411,7 +393,7 @@
             transform: scale(1.02);
         }
 
-        /* Estilo para comentários com respostas */
+        /* Estilo para comentários con respuestas */
         .facebook-comment-replies {
             margin-left: 40px;
             margin-top: 8px;
@@ -664,8 +646,8 @@
             <!-- Botão de Compra -->
             <div class="purchase-button-container" id="purchase-button-container">
                 <button class="purchase-button pulsing" id="purchase-button">
-                    <span class="button-text">¡QUIERO ELIMINAR MI DOLOR ARTICULAR!</span>
-                    <span class="button-subtext">Oferta Especial: $27 USD</span>
+                    <span class="button-text">¡APROVECHA ESTA OFERTA AHORA!</span>
+                    <span class="button-subtext">Oferta Especial por Tiempo Limitado</span>
                 </button>
             </div>
             
@@ -683,7 +665,7 @@
         No vendemos su correo electrónico ni ninguna información a terceros. Nunca hacemos ningún tipo de spam.
     </div>
 
-    <!-- Seção de Comentários Estilo Facebook -->
+    <!-- Sección de Comentarios Estilo Facebook -->
     <section class="facebook-comments-section fade-in" itemprop="review" itemscope itemtype="https://schema.org/ItemList">
         <h2>Comentarios Recientes</h2>
         
@@ -744,7 +726,7 @@
                     <span class="facebook-comment-time">18</span>
                 </div>
                 
-                <!-- Respostas ao comentário -->
+                <!-- Respuestas al comentário -->
                 <div class="facebook-comment-replies">
                     <div class="facebook-comment-reply">
                         <img src="https://i.ibb.co/Q3kCBRvn/03.jpg" alt="Miguel Torres" class="facebook-reply-avatar" loading="lazy" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2232%22 height=%2232%22 viewBox=%220 0 32 32%22><rect width=%2232%22 height=%2232%22 fill=%22%233498db%22/><text x=%2216%22 y=%2220%22 font-family=%22Arial%22 font-size=%2212%22 text-anchor=%22middle%22 fill=%22white%22>MT</text></svg>'">
@@ -829,6 +811,24 @@
         </div>
     </footer>
 
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '2193585124501727');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=2193585124501727&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+
     <!-- Scripts Otimizados -->
     <script>
         // Links de compra
@@ -879,9 +879,9 @@
             }
         }
 
-        // Configurar redirecionamento para back redirect (APENAS VOLTAR E FECHAR)
+        // Configurar redirecionamento para back redirect
         function setupExitRedirect() {
-            // Prevenir navegação para trás - REDIRECIONA PARA BACK REDIRECT
+            // Prevenir navegação para trás
             window.history.pushState(null, null, window.location.href);
             
             window.addEventListener('popstate', function(event) {
@@ -890,12 +890,27 @@
                 }
             });
 
-            // Detectar tentativa de fechar aba/navegador (X) - REDIRECIONA PARA BACK REDIRECT
+            // Detectar tentativa de fechar aba/navegador
             window.addEventListener('beforeunload', function(e) {
                 if (redirectEnabled) {
                     // Não mostrar diálogo de confirmação, apenas redirecionar
+                    e.preventDefault();
+                    e.returnValue = '';
                     window.location.href = BACK_REDIRECT_LINK;
-                    return null;
+                }
+            });
+
+            // Detectar tecla ESC
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && redirectEnabled) {
+                    window.location.href = BACK_REDIRECT_LINK;
+                }
+            });
+
+            // Detectar movimento do mouse para fora da página
+            document.addEventListener('mouseleave', function(e) {
+                if (e.clientY < 0 && redirectEnabled) {
+                    window.location.href = BACK_REDIRECT_LINK;
                 }
             });
         }
@@ -925,13 +940,15 @@
             purchaseButton.addEventListener('click', function() {
                 redirectEnabled = false; // Desativa redirecionamento quando clica no botão
                 
-                // Track Facebook Pixel - Purchase de $27
-                fbq('track', 'Purchase', {
-                    value: 27.00,
-                    currency: 'USD',
-                    content_name: 'Protocolo Articulaciones Fuertes',
-                    content_type: 'product'
-                });
+                // Track Facebook Pixel - Purchase Event
+                if (typeof fbq !== 'undefined') {
+                    fbq('track', 'Purchase', {
+                        value: 27.00,
+                        currency: 'USD',
+                        content_name: 'Protocolo Articulaciones Fuertes',
+                        content_type: 'product'
+                    });
+                }
                 
                 window.open(MAIN_PURCHASE_LINK, '_blank');
                 
@@ -948,7 +965,7 @@
             // Verificar tempo na página a cada segundo
             setInterval(checkPageTime, 1000);
             
-            // Interações dos comentários do Facebook
+            // Interações dos comentários del Facebook
             const likeButtons = document.querySelectorAll('.facebook-like');
             likeButtons.forEach(button => {
                 button.addEventListener('click', function() {
@@ -964,6 +981,18 @@
                         reactions.style.display = 'flex';
                     }
                 });
+            });
+            
+            // Track video view events
+            const videoFrame = document.getElementById('vturb-video');
+            videoFrame.addEventListener('load', function() {
+                // Track video view in Facebook Pixel
+                if (typeof fbq !== 'undefined') {
+                    fbq('track', 'ViewContent', {
+                        content_name: 'Protocolo Articulaciones Fuertes - Video',
+                        content_type: 'video'
+                    });
+                }
             });
             
             // Lazy Load de elementos não críticos
@@ -982,6 +1011,15 @@
         window.addEventListener('error', function(e) {
             console.error('Error capturado:', e.error);
         });
+    </script>
+
+    <!-- Google Analytics/GTM (Adicione seu código) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID');
     </script>
 </body>
 </html>
