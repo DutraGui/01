@@ -152,7 +152,6 @@
 
         /* BOTÃO DE COMPRA */
         .purchase-button-container {
-            display: none;
             text-align: center;
             margin: 25px auto;
             max-width: 500px;
@@ -215,6 +214,12 @@
             opacity: 0.9;
             margin-top: 5px;
             font-weight: normal;
+        }
+
+        .price-highlight {
+            color: #f1c40f;
+            font-weight: bold;
+            font-size: 1.2em;
         }
 
         /* Mobile First Video Styles */
@@ -598,6 +603,42 @@
                 min-height: 60px;
             }
         }
+
+        /* Garantias e Benefícios */
+        .benefits-section {
+            padding: 40px 20px;
+            background: white;
+            text-align: center;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .benefit-item {
+            padding: 20px;
+        }
+
+        .benefit-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .benefit-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+
+        .benefit-description {
+            color: #666;
+            line-height: 1.5;
+        }
     </style>
 </head>
 
@@ -643,17 +684,52 @@
                 </div>
             </div>
 
-            <!-- Botão de Compra -->
+            <!-- Botão de Compra Principal -->
             <div class="purchase-button-container" id="purchase-button-container">
                 <button class="purchase-button pulsing" id="purchase-button">
-                    <span class="button-text">¡APROVECHA ESTA OFERTA AHORA!</span>
-                    <span class="button-subtext">Oferta Especial por Tiempo Limitado</span>
+                    <span class="button-text">¡QUIERO ELIMINAR MI DOLOR ARTICULAR!</span>
+                    <span class="button-subtext">Acceso Inmediato por solo <span class="price-highlight">$27 USD</span> - Oferta por Tiempo Limitado</span>
                 </button>
+                
+                <div style="margin-top: 15px; font-size: 0.9rem; color: #666;">
+                    ✅ <strong>Garantía de 7 días</strong> | 💳 <strong>Pago 100% Seguro</strong> | 📱 <strong>Acceso Inmediato</strong>
+                </div>
             </div>
             
             <p class="video-instructions">
                 <strong>Haga clic en el video para descubrir el método completo que está revolucionando el tratamiento del dolor articular</strong>
             </p>
+        </div>
+    </section>
+
+    <!-- Sección de Beneficios -->
+    <section class="benefits-section fade-in">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 40px; font-size: 2rem; color: var(--secondary);">
+                Lo Que Obtendrás Con El Protocolo
+            </h2>
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <div class="benefit-icon">🔬</div>
+                    <div class="benefit-title">Método Científico</div>
+                    <div class="benefit-description">Técnica avalada por investigadores de la Universidad de Tokio, 100% natural y sin efectos secundarios</div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">⚡</div>
+                    <div class="benefit-title">Resultados Rápidos</div>
+                    <div class="benefit-description">Empieza a notar mejoría desde la primera semana y elimina el dolor completamente en 4 semanas</div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">💻</div>
+                    <div class="benefit-title">Acceso Inmediato</div>
+                    <div class="benefit-description">Recibe el protocolo completo en tu email inmediatamente después del pago</div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">🛡️</div>
+                    <div class="benefit-title">Garantía Total</div>
+                    <div class="benefit-description">7 días de garantía de devolución si no ves resultados satisfactorios</div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -831,15 +907,8 @@
 
     <!-- Scripts Otimizados -->
     <script>
-        // Links de compra
+        // Link de compra principal
         const MAIN_PURCHASE_LINK = 'https://pay.kiwify.com/uJflP5X'; // $27
-        const BACK_REDIRECT_LINK = 'back-redirect.html'; // Página de oferta especial $6
-
-        // Variáveis globais
-        let redirectEnabled = true;
-        let buttonShown = false;
-        const BUTTON_DELAY = 20 * 60 * 1000; // 20 minutos em milissegundos
-        let pageLoadTime = Date.now();
 
         // Video Loader Otimizado
         function loadVideo() {
@@ -861,70 +930,6 @@
             }, 100);
         }
 
-        // Mostrar botão após 20 minutos
-        function showPurchaseButton() {
-            if (!buttonShown) {
-                const purchaseButton = document.getElementById('purchase-button-container');
-                purchaseButton.style.display = 'block';
-                purchaseButton.classList.add('fade-in');
-                buttonShown = true;
-                
-                // Rolar suavemente para o botão
-                setTimeout(() => {
-                    purchaseButton.scrollIntoView({ 
-                        behavior: 'smooth', 
-                        block: 'center' 
-                    });
-                }, 500);
-            }
-        }
-
-        // Configurar redirecionamento para back redirect
-        function setupExitRedirect() {
-            // Prevenir navegação para trás
-            window.history.pushState(null, null, window.location.href);
-            
-            window.addEventListener('popstate', function(event) {
-                if (redirectEnabled) {
-                    window.location.href = BACK_REDIRECT_LINK;
-                }
-            });
-
-            // Detectar tentativa de fechar aba/navegador
-            window.addEventListener('beforeunload', function(e) {
-                if (redirectEnabled) {
-                    // Não mostrar diálogo de confirmação, apenas redirecionar
-                    e.preventDefault();
-                    e.returnValue = '';
-                    window.location.href = BACK_REDIRECT_LINK;
-                }
-            });
-
-            // Detectar tecla ESC
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && redirectEnabled) {
-                    window.location.href = BACK_REDIRECT_LINK;
-                }
-            });
-
-            // Detectar movimento do mouse para fora da página
-            document.addEventListener('mouseleave', function(e) {
-                if (e.clientY < 0 && redirectEnabled) {
-                    window.location.href = BACK_REDIRECT_LINK;
-                }
-            });
-        }
-
-        // Verificar tempo na página e mostrar botão
-        function checkPageTime() {
-            const currentTime = Date.now();
-            const timeOnPage = currentTime - pageLoadTime;
-            
-            if (timeOnPage >= BUTTON_DELAY && !buttonShown) {
-                showPurchaseButton();
-            }
-        }
-
         // Inicialização da Página
         document.addEventListener('DOMContentLoaded', function() {
             // Data atual
@@ -938,8 +943,6 @@
             // Configurar botão de compra principal
             const purchaseButton = document.getElementById('purchase-button');
             purchaseButton.addEventListener('click', function() {
-                redirectEnabled = false; // Desativa redirecionamento quando clica no botão
-                
                 // Track Facebook Pixel - Purchase Event
                 if (typeof fbq !== 'undefined') {
                     fbq('track', 'Purchase', {
@@ -959,11 +962,17 @@
                 }, 150);
             });
             
-            // Configurar redirecionamento para back redirect
-            setupExitRedirect();
-            
-            // Verificar tempo na página a cada segundo
-            setInterval(checkPageTime, 1000);
+            // Track video view events
+            const videoFrame = document.getElementById('vturb-video');
+            videoFrame.addEventListener('load', function() {
+                // Track video view in Facebook Pixel
+                if (typeof fbq !== 'undefined') {
+                    fbq('track', 'ViewContent', {
+                        content_name: 'Protocolo Articulaciones Fuertes - Video',
+                        content_type: 'video'
+                    });
+                }
+            });
             
             // Interações dos comentários del Facebook
             const likeButtons = document.querySelectorAll('.facebook-like');
@@ -981,18 +990,6 @@
                         reactions.style.display = 'flex';
                     }
                 });
-            });
-            
-            // Track video view events
-            const videoFrame = document.getElementById('vturb-video');
-            videoFrame.addEventListener('load', function() {
-                // Track video view in Facebook Pixel
-                if (typeof fbq !== 'undefined') {
-                    fbq('track', 'ViewContent', {
-                        content_name: 'Protocolo Articulaciones Fuertes - Video',
-                        content_type: 'video'
-                    });
-                }
             });
             
             // Lazy Load de elementos não críticos
