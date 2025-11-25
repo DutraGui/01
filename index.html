@@ -53,6 +53,24 @@
     }
     </script>
     
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '2193585124501727');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=2193585124501727&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+    
     <!-- Preload Critical Resources -->
     <link rel="preload" href="https://scripts.converteai.net/lib/js/smartplayer-wc/v4/sdk.js" as="script" crossorigin="anonymous">
     <link rel="preconnect" href="https://scripts.converteai.net">
@@ -646,8 +664,8 @@
             <!-- Botão de Compra -->
             <div class="purchase-button-container" id="purchase-button-container">
                 <button class="purchase-button pulsing" id="purchase-button">
-                    <span class="button-text">¡APROVECHA ESTA OFERTA AHORA!</span>
-                    <span class="button-subtext">Oferta Especial por Tiempo Limitado</span>
+                    <span class="button-text">¡QUIERO ELIMINAR MI DOLOR ARTICULAR!</span>
+                    <span class="button-subtext">Oferta Especial: $27 USD</span>
                 </button>
             </div>
             
@@ -815,7 +833,7 @@
     <script>
         // Links de compra
         const MAIN_PURCHASE_LINK = 'https://pay.kiwify.com/uJflP5X'; // $27
-        const EXIT_PURCHASE_LINK = 'https://pay.kiwify.com/yAMdzMA'; // $6
+        const BACK_REDIRECT_LINK = 'back-redirect.html'; // Página de oferta especial $6
 
         // Variáveis globais
         let redirectEnabled = true;
@@ -861,38 +879,23 @@
             }
         }
 
-        // Configurar redirecionamento de saída
+        // Configurar redirecionamento para back redirect (APENAS VOLTAR E FECHAR)
         function setupExitRedirect() {
-            // Prevenir navegação para trás
+            // Prevenir navegação para trás - REDIRECIONA PARA BACK REDIRECT
             window.history.pushState(null, null, window.location.href);
             
             window.addEventListener('popstate', function(event) {
                 if (redirectEnabled) {
-                    window.location.href = EXIT_PURCHASE_LINK;
+                    window.location.href = BACK_REDIRECT_LINK;
                 }
             });
 
-            // Detectar tentativa de fechar aba/navegador
+            // Detectar tentativa de fechar aba/navegador (X) - REDIRECIONA PARA BACK REDIRECT
             window.addEventListener('beforeunload', function(e) {
                 if (redirectEnabled) {
                     // Não mostrar diálogo de confirmação, apenas redirecionar
-                    e.preventDefault();
-                    e.returnValue = '';
-                    window.location.href = EXIT_PURCHASE_LINK;
-                }
-            });
-
-            // Detectar tecla ESC
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && redirectEnabled) {
-                    window.location.href = EXIT_PURCHASE_LINK;
-                }
-            });
-
-            // Detectar movimento do mouse para fora da página
-            document.addEventListener('mouseleave', function(e) {
-                if (e.clientY < 0 && redirectEnabled) {
-                    window.location.href = EXIT_PURCHASE_LINK;
+                    window.location.href = BACK_REDIRECT_LINK;
+                    return null;
                 }
             });
         }
@@ -921,6 +924,15 @@
             const purchaseButton = document.getElementById('purchase-button');
             purchaseButton.addEventListener('click', function() {
                 redirectEnabled = false; // Desativa redirecionamento quando clica no botão
+                
+                // Track Facebook Pixel - Purchase de $27
+                fbq('track', 'Purchase', {
+                    value: 27.00,
+                    currency: 'USD',
+                    content_name: 'Protocolo Articulaciones Fuertes',
+                    content_type: 'product'
+                });
+                
                 window.open(MAIN_PURCHASE_LINK, '_blank');
                 
                 // Efeito de clique
@@ -930,7 +942,7 @@
                 }, 150);
             });
             
-            // Configurar redirecionamento de saída
+            // Configurar redirecionamento para back redirect
             setupExitRedirect();
             
             // Verificar tempo na página a cada segundo
@@ -970,15 +982,6 @@
         window.addEventListener('error', function(e) {
             console.error('Error capturado:', e.error);
         });
-    </script>
-
-    <!-- Google Analytics/GTM (Adicione seu código) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'GA_MEASUREMENT_ID');
     </script>
 </body>
 </html>
